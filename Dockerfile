@@ -1,14 +1,23 @@
 ARG BBKCLI_VERSION=1.0
-FROM scratch AS bbkcli
+
+FROM --platform=${TARGETPLATFORM} alpine:3.16 AS bbkcli
 
 # See: http://www.bredbandskollen.se/bredbandskollen-cli/
 ARG BBKCLI_VERSION
-ADD ["https://frontend.bredbandskollen.se/download/bbk_cli_linux_amd64-${BBKCLI_VERSION}", "/bbk_cli"]
+
+ARG TARGETPLATFORM
+RUN case ${TARGETPLATFORM} in \
+         "linux/amd64")  BBKCLI_ARCH=amd64  ;; \
+         "linux/arm64")  BBKCLI_ARCH=aarch64  ;; \
+         "linux/arm/v7") BBKCLI_ARCH=armhf  ;; \
+         "linux/386")    BBKCLI_ARCH=i386   ;; \
+    esac \
+    && wget -q https://frontend.bredbandskollen.se/download/bbk_cli_linux_${BBKCLI_ARCH:-amd64}-${BBKCLI_VERSION} -O /bbk_cli
 
 
 
 # Main image
-FROM alpine:3.16
+FROM --platform=${TARGETPLATFORM} alpine:3.16
 
 LABEL net.northern-lights.image.authors="aleksandar@puharic.com"
 LABEL net.northern-lights.image.version="${BBKCLI_VERSION}"
@@ -20,5 +29,7 @@ RUN apk add --update --no-cache gcompat libstdc++ tzdata \
 COPY --from=bbkcli --chmod=0775 ["/bbk_cli", "/usr/local/bin/"]
 
 ARG BBKCLI_VERSION
+ARG TARGETPLATFORM
 ENV BBKCLI_VERSION=${BBKCLI_VERSION}
+ENV PLATFORM_ARCH=${TARGETPLATFORM}
 ENV TZ=Europe/Stockholm
