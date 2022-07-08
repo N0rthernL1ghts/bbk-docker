@@ -1,4 +1,4 @@
-name: Build docker WordPress image
+name: Build Bredbandskollen's CLI docker image
 
 on:
   push:
