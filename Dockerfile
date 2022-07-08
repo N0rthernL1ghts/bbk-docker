@@ -4,7 +4,6 @@ FROM --platform=${TARGETPLATFORM} alpine:3.16 AS bbkcli
 
 # See: http://www.bredbandskollen.se/bredbandskollen-cli/
 ARG BBKCLI_VERSION
-
 ARG TARGETPLATFORM
 RUN case ${TARGETPLATFORM} in \
          "linux/amd64")  BBKCLI_ARCH=amd64  ;; \
