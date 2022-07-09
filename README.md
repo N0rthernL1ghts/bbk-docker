@@ -9,7 +9,7 @@ This repository is not distributing a copy of the software and therefore doesn't
 #### Docker build
   
 
-###### Images
+##### Images
 ```
 nlss/bbk-cli:latest
 nlss/bbk-cli:1.0
@@ -17,8 +17,19 @@ nlss/bbk-cli:1.0
 
 Image is tagged with software version. Image might be updated whilst version of the bundled software remains the same.  
 
-###### Supported platforms
+##### Supported platforms
 - linux/i386
 - linux/amd64
 - linux/armhf
 - linux/aarch64
+
+##### Running
+To run bbk cli, use this command:  
+```
+docker run --init --rm -it nlss/bbk-cli
+```
+
+You can also supply arbitrary arguments like this:
+```
+docker run --init --rm -it nlss/bbk-cli --help
+```
