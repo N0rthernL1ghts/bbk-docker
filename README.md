@@ -20,8 +20,10 @@ Image is tagged with software version. Image might be updated whilst version of 
 ##### Supported platforms
 - linux/i386
 - linux/amd64
-- linux/armhf
+- linux/armhf 
 - linux/aarch64
+
+Note: ARM support is questionable and untested. 
 
 ##### Running
 To run bbk cli, use this command:  
