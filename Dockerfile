@@ -13,6 +13,8 @@ RUN case ${TARGETPLATFORM} in \
     esac \
     && wget -q https://frontend.bredbandskollen.se/download/bbk_cli_linux_${BBKCLI_ARCH:-amd64}-${BBKCLI_VERSION} -O /bbk_cli
 
+ADD ["https://raw.githubusercontent.com/dotse/bbk/refs/heads/master/LICENSE", "/bbk_cli_license"]
+
 
 
 # Main image
@@ -22,6 +24,7 @@ RUN apk add --update --no-cache gcompat libstdc++ tzdata \
     && ln -sf /usr/local/bin/bbk_cli /usr/local/bin/bbk
 
 COPY --from=bbkcli --chmod=0775 ["/bbk_cli", "/usr/local/bin/"]
+COPY --from=bbkcli --chmod=0755 ["/bbk_cli_license", "/usr/local/src/bbk/LICENSE.txt"]
 
 ARG BBKCLI_VERSION
 ARG TARGETPLATFORM
@@ -31,6 +34,6 @@ ENV TZ=Europe/Stockholm
 
 LABEL net.northern-lights.image.authors="aleksandar@puharic.com"
 LABEL net.northern-lights.image.version="${BBKCLI_VERSION}"
-LABEL net.northern-lights.image.licenses="GPL-2.0+"
+LABEL net.northern-lights.image.licenses="MIT"
 
 ENTRYPOINT [ "/usr/local/bin/bbk_cli" ]
