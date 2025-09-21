@@ -1,6 +1,6 @@
 ARG BBKCLI_VERSION=1.0
 
-FROM --platform=${TARGETPLATFORM} alpine:3.22 AS bbkcli
+FROM alpine:3.22 AS bbkcli
 
 # See: http://www.bredbandskollen.se/bredbandskollen-cli/
 ARG BBKCLI_VERSION
@@ -16,7 +16,7 @@ RUN case ${TARGETPLATFORM} in \
 
 
 # Main image
-FROM --platform=${TARGETPLATFORM} alpine:3.22
+FROM alpine:3.22
 
 LABEL net.northern-lights.image.authors="aleksandar@puharic.com"
 LABEL net.northern-lights.image.version="${BBKCLI_VERSION}"
