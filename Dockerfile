@@ -18,10 +18,6 @@ RUN case ${TARGETPLATFORM} in \
 # Main image
 FROM alpine:3.22
 
-LABEL net.northern-lights.image.authors="aleksandar@puharic.com"
-LABEL net.northern-lights.image.version="${BBKCLI_VERSION}"
-LABEL net.northern-lights.image.licenses="GPL-2.0+"
-
 RUN apk add --update --no-cache gcompat libstdc++ tzdata \
     && ln -sf /usr/local/bin/bbk_cli /usr/local/bin/bbk
 
@@ -32,5 +28,9 @@ ARG TARGETPLATFORM
 ENV BBKCLI_VERSION=${BBKCLI_VERSION}
 ENV PLATFORM_ARCH=${TARGETPLATFORM}
 ENV TZ=Europe/Stockholm
+
+LABEL net.northern-lights.image.authors="aleksandar@puharic.com"
+LABEL net.northern-lights.image.version="${BBKCLI_VERSION}"
+LABEL net.northern-lights.image.licenses="GPL-2.0+"
 
 ENTRYPOINT [ "/usr/local/bin/bbk_cli" ]
