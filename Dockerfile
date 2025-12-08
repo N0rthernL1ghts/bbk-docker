@@ -1,6 +1,6 @@
 ARG BBKCLI_VERSION=1.0
 
-FROM alpine:3.22 AS bbkcli
+FROM alpine:3.23 AS bbkcli
 
 # See: http://www.bredbandskollen.se/bredbandskollen-cli/
 ARG BBKCLI_VERSION
@@ -18,7 +18,7 @@ ADD ["https://raw.githubusercontent.com/dotse/bbk/refs/heads/master/LICENSE", "/
 
 
 # Main image
-FROM alpine:3.22
+FROM alpine:3.23
 
 RUN apk add --update --no-cache gcompat libstdc++ tzdata \
     && ln -sf /usr/local/bin/bbk_cli /usr/local/bin/bbk
